@@ -18,7 +18,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "users")
-@JsonIgnoreProperties(value = {"id", "password", "createdAt", "updatedAt"})
+@JsonIgnoreProperties(value = {"id", "createdAt", "updatedAt"})
 public class User {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

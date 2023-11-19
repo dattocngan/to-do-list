@@ -57,8 +57,8 @@ public class UserController {
     return new ResponseEntity<>(successResponse, HttpStatus.OK);
   }
 
-  @GetMapping("/user/{id}")
-  public ResponseEntity<Map<String, ?>> getUser(@PathVariable long id) {
+  @GetMapping("/user")
+  public ResponseEntity<Map<String, ?>> getUser(@RequestHeader("userId") Long id) {
     User user = userRepository.findById(id).orElse(null);
     if(user == null) {
       Map<String, String> errorResponse = new HashMap<>();
@@ -70,8 +70,8 @@ public class UserController {
     return new ResponseEntity<>(successResponse, HttpStatus.OK);
   }
 
-  @PutMapping("/user/{id}")
-  public ResponseEntity<Map<String, ?>> editUser(@PathVariable long id, @RequestBody UserSchema inputUser) {
+  @PutMapping("/user")
+  public ResponseEntity<Map<String, ?>> editUser(@RequestHeader("userId") Long id, @RequestBody UserSchema inputUser) {
     User updateUser = userRepository.findById(id).orElse(null);
 
     if (updateUser == null) {
