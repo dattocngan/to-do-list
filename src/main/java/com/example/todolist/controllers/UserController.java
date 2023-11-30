@@ -24,7 +24,7 @@ public class UserController {
     User checkUser = userRepository.findByUsername(inputUser.getUsername());
     if (checkUser != null) {
       Map<String, String> errorResponse = new HashMap<>();
-      errorResponse.put("message", "Username has been taken!");
+      errorResponse.put("message", "Tên tài khoản đã được sử dụng!");
       return new ResponseEntity<>(errorResponse, HttpStatus.FORBIDDEN);
     }
     User newUser = new User();
@@ -34,7 +34,7 @@ public class UserController {
     newUser.setName(inputUser.getName());
     userRepository.save(newUser);
     Map<String, String> successResponse = new HashMap<>();
-    successResponse.put("message", "Created successfully!");
+    successResponse.put("message", "Tạo thành công!");
     return new ResponseEntity<>(successResponse, HttpStatus.CREATED);
   }
 
@@ -43,12 +43,12 @@ public class UserController {
     User checkUser = userRepository.findByUsername(inputUser.getUsername());
     if (checkUser == null) {
       Map<String, String> errorResponse = new HashMap<>();
-      errorResponse.put("message", "Username cannot be found!");
+      errorResponse.put("message", "Tên người dùng không tồn tại!");
       return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
     if (!BCrypt.checkpw(inputUser.getPassword(), checkUser.getPassword())) {
       Map<String, String> errorResponse = new HashMap<>();
-      errorResponse.put("message", "Wrong password!");
+      errorResponse.put("message", "Sai mật khẩu!");
       return new ResponseEntity<>(errorResponse, HttpStatus.UNAUTHORIZED);
     }
     Map<String, String> successResponse = new HashMap<>();
@@ -62,7 +62,7 @@ public class UserController {
     User user = userRepository.findById(id).orElse(null);
     if(user == null) {
       Map<String, String> errorResponse = new HashMap<>();
-      errorResponse.put("message", "User cannot be found!");
+      errorResponse.put("message", "Người dùng không thể tìm thấy!");
       return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
     Map<String, Object> successResponse = new HashMap<>();
@@ -76,7 +76,7 @@ public class UserController {
 
     if (updateUser == null) {
       Map<String, String> errorResponse = new HashMap<>();
-      errorResponse.put("message", "User cannot be found!");
+      errorResponse.put("message", "Người dùng không thể tìm thấy!");
       return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
 
@@ -94,12 +94,12 @@ public class UserController {
       boolean isEqual = BCrypt.checkpw(inputUser.getOldPassword(), updateUser.getPassword());
       if (!isEqual) {
         Map<String, String> errorResponse = new HashMap<>();
-        errorResponse.put("message", "Wrong password!");
+        errorResponse.put("message", "Sai mật khẩu!");
         return new ResponseEntity<>(errorResponse, HttpStatus.UNAUTHORIZED);
       }
       if (inputUser.getOldPassword().equals(inputUser.getNewPassword())) {
         Map<String, String> errorResponse = new HashMap<>();
-        errorResponse.put("message", "Try another new password!");
+        errorResponse.put("message", "Hãy thử 1 mật khẩu khác!");
         return new ResponseEntity<>(errorResponse, HttpStatus.UNAUTHORIZED);
       }
       String hashPw = BCrypt.hashpw(inputUser.getNewPassword(), BCrypt.gensalt());
@@ -108,7 +108,7 @@ public class UserController {
 
     userRepository.save(updateUser);
     Map<String, String> successResponse = new HashMap<>();
-    successResponse.put("message", "Updated successfully!");
+    successResponse.put("message", "Cập nhật thành công!");
     return new ResponseEntity<>(successResponse, HttpStatus.OK);
   }
 }

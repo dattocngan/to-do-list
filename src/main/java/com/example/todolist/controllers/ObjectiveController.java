@@ -46,7 +46,7 @@ public class ObjectiveController {
     Objective objective = objectiveRepository.findByIdAndUserId(id, userId);
     if (objective == null) {
       Map<String, String> errorResponse = new HashMap<>();
-      errorResponse.put("message", "Objective cannot be found!");
+      errorResponse.put("message", "Mục tiêu không thể tìm thấy!");
       return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
     ModelMapper modelMapper = new ModelMapper();
@@ -76,7 +76,7 @@ public class ObjectiveController {
     }
 
     Map<String, String> successResponse = new HashMap<>();
-    successResponse.put("message", "Created successfully!");
+    successResponse.put("message", "Tạo mục tiêu thành công!");
     return ResponseEntity.status(201).body(successResponse);
   }
 
@@ -85,7 +85,7 @@ public class ObjectiveController {
     Objective objective = objectiveRepository.findByIdAndUserId(id, userId);
     if (objective == null) {
       Map<String, String> errorResponse = new HashMap<>();
-      errorResponse.put("message", "Objective cannot be found!");
+      errorResponse.put("message", "Mục tiêu không thể tìm thấy!");
       return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
 
@@ -134,7 +134,7 @@ public class ObjectiveController {
     }
 
     Map<String, String> successResponse = new HashMap<>();
-    successResponse.put("message", "Updated successfully!");
+    successResponse.put("message", "Cập nhật thành công!");
     return ResponseEntity.status(200).body(successResponse);
   }
 
@@ -144,14 +144,14 @@ public class ObjectiveController {
     Objective obj = objectiveRepository.findByIdAndUserId(id, userId);
     if (obj == null) {
       Map<String, String> errorResponse = new HashMap<>();
-      errorResponse.put("message", "Objective cannot be found!");
+      errorResponse.put("message", "Mục tiêu không thể tìm thấy!");
       return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
     objectiveRepository.delete(obj);
     keyResultRepository.deleteByObjectiveId(id);
 
     Map<String, String> successResponse = new HashMap<>();
-    successResponse.put("message", "Deleted successfully!");
+    successResponse.put("message", "Xoá thành công!");
     return ResponseEntity.status(200).body(successResponse);
   }
 }

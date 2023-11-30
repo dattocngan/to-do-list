@@ -25,19 +25,19 @@ public class KeyResultController {
     KeyResult keyResult = keyResultRepository.findById(id).orElse(null);
     if (keyResult == null) {
       Map<String, String> errorResponse = new HashMap<>();
-      errorResponse.put("message", "Key result cannot be found!");
+      errorResponse.put("message", "Mục tiêu con không thể tìm thấy!");
       return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
     Objective objective = objectiveRepository.findById(keyResult.getObjectiveId()).orElse(null);
     if (objective != null && !Objects.equals(objective.getUserId(), userId)) {
       Map<String, String> errorResponse = new HashMap<>();
-      errorResponse.put("message", "Not allowed!");
+      errorResponse.put("message", "Không cho phép!");
       return new ResponseEntity<>(errorResponse, HttpStatus.FORBIDDEN);
     }
     keyResultRepository.delete(keyResult);
 
     Map<String, String> successResponse = new HashMap<>();
-    successResponse.put("message", "Deleted successfully!");
+    successResponse.put("message", "Xoá thành công!");
     return ResponseEntity.status(200).body(successResponse);
   }
 }
